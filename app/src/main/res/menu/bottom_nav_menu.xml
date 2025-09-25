@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_police"
+        android:icon="@android:drawable/ic_menu_compass"
+        android:title="Police" />
+
+    <item
+        android:id="@+id/nav_hospital"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="Hospital" />
+
+    <item
+        android:id="@+id/nav_bank"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Bank" />
+
+    <item
+        android:id="@+id/nav_school"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="School" />
+
+    <item
+        android:id="@+id/nav_shopping"
+        android:icon="@android:drawable/ic_menu_search"
+        android:title="Shopping" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:icon="@android:drawable/ic_lock_power_off"
+        android:title="Logout" />
+</menu>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary brand color -->
+    <color name="primary">#1976D2</color> <!-- Deep Blue -->
+    <color name="primaryDark">#0D47A1</color> <!-- Darker Blue -->
+    <color name="accent">#FFC107</color> <!-- Amber accent -->
+
+    <!-- Neutrals -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="gray">#757575</color> <!-- Medium gray -->
+    <color name="lightGray">#E0E0E0</color> <!-- Background light gray -->
+    <!-- Light gray for background -->
+    <color name="grayLight">#F5F5F5</color>
+
+
+    <!-- Add missing colors -->
+    <color name="teal">#00897B</color>         <!-- Darker teal -->
+    <color name="teal_200">#80CBC4</color>    <!-- Lighter teal -->
+
+    <!-- Medium gray for hints/text -->
+    <color name="grayMedium">#9E9E9E</color>
+    <!-- Danger / Alerts -->
+    <color name="red">#D32F2F</color>
+    <color name="green">#388E3C</color>
+    <color name="darkRed">#B71C1C</color>
+    <color name="textPrimary">#212121</color>
+    <color name="softBlue">#64B5F6</color>
+    <color name="lightBrown">#A1887F</color>
+
+    <!-- Background -->
+    <color name="background">#F5F5F5</color>
+    <!-- Main Theme Colors -->
+    <color name="primaryColor">#6200EE</color>     <!-- Purple (Material Default) -->
+    <color name="primaryDarkColor">#3700B3</color> <!-- Darker shade -->
+    <color name="secondaryColor">#03DAC5</color>   <!-- Teal Accent -->
+    <color name="pinkDark">#1565C0</color>
+    <color name="background_light">#F5F5F5</color>
+    <color name="grey">#757575</color>
+
+
+
+</resources>

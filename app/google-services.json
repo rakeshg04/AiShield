@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "912366351038",
+    "project_id": "aishield4-6687d",
+    "storage_bucket": "aishield4-6687d.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:912366351038:android:90cb2a8c31c25b10df24ef",
+        "android_client_info": {
+          "package_name": "com.example.aishield"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBpBjWo07GmnaxEGvocKMMzbefUbxKs5fo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

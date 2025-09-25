@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".chatbot">
+
+  <!-- TextView to show recognized voice -->
+  <TextView
+      android:id="@+id/tvRecognizedText"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_margin="16dp"
+      android:text="Say something..."
+      android:textSize="18sp"
+      android:textColor="@android:color/black"
+      app:layout_constraintTop_toTopOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent" />
+
+  <!-- Mic Button for starting voice input -->
+  <ImageButton
+      android:id="@+id/btnMic"
+      android:layout_width="70dp"
+      android:layout_height="70dp"
+      android:background="@android:color/transparent"
+      android:src="@android:drawable/ic_btn_speak_now"
+      android:contentDescription="Speak"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      android:layout_marginBottom="32dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
