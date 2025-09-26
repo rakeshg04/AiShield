@@ -78,18 +78,26 @@ class Esp32BluetoothService(
     }
 
     private fun handleMessage(msg: String) {
-        try {
-            val parts = msg.split(",")
-            val lat = parts[0].substringAfter("LAT:").trim()
-            val lon = parts[1].substringAfter("LON:").trim()
-            sendSms(lat, lon)
-        } catch (e: Exception) {
-            Log.e("ESP32", "Invalid GPS format: $msg")
+    if (msg.startsWith("NO_GPS")) {
+        sendSmsFallback()
+        
+        (context as? Activity)?.runOnUiThread {
+            Toast.makeText(context, "GPS not available, fallback SMS sent", Toast.LENGTH_LONG).show()
+        }
+        return
+    }
+    try {
+        val parts = msg.split(",")
+        val lat = parts[0].substringAfter("LAT:").trim()
+        val lon = parts[1].substringAfter("LON:").trim()
+        sendSmsWithLocation(lat, lon)
+    } catch (e: Exception) {
+        Log.e("ESP32", "Invalid GPS format: $msg")
         }
     }
 
     @SuppressLint("MissingPermission")
-    private fun sendSms(lat: String, lon: String) {
+    private fun sendSmsWithLocation(lat: String, lon: String) {
         val smsManager = SmsManager.getDefault()
         val message = "Emergency! Location: https://maps.google.com/?q=$lat,$lon"
 
@@ -99,6 +107,22 @@ class Esp32BluetoothService(
         ) {
             smsManager.sendTextMessage(phoneNumber, null, message, null, null)
             Log.i("ESP32", "SMS sent: $message")
+        } else {
+            Log.e("ESP32", "SEND_SMS permission not granted")
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun sendSmsFallback() {
+        val smsManager = SmsManager.getDefault()
+        val message = "Emergency! GPS not available. Please check."
+
+        if (ActivityCompat.checkSelfPermission(
+                context, Manifest.permission.SEND_SMS
+            ) == android.content.pm.PackageManager.PERMISSION_GRANTED
+        ) {
+            smsManager.sendTextMessage(phoneNumber, null, message, null, null)
+            Log.i("ESP32", "Fallback SMS sent: $message")
         } else {
             Log.e("ESP32", "SEND_SMS permission not granted")
         }

@@ -1,18 +1,19 @@
 package com.example.aishield
 
+import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import com.example.aishield.databinding.ActivityMainBinding
 import com.google.firebase.FirebaseException
 import com.google.firebase.auth.*
 import com.google.firebase.database.FirebaseDatabase
 import java.util.concurrent.TimeUnit
-import android.Manifest
-import androidx.core.app.ActivityCompat
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +29,9 @@ class MainActivity : AppCompatActivity() {
     private var tempPhone = ""
     private var tempAddress = ""
     private var tempPassword = ""
+
+    // ✅ ESP32 service (initialize later)
+    private lateinit var espService: Esp32BluetoothService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +66,31 @@ class MainActivity : AppCompatActivity() {
         // ✅ Go to Login
         binding.tvLogin.setOnClickListener {
             startActivity(Intent(this, Login::class.java))
+        }
+
+        // ✅ ESP32 integration setup
+        espService = Esp32BluetoothService(this, "+917996799399") // replace with real number
+
+        // Ask runtime permissions
+        ActivityCompat.requestPermissions(
+            this,
+            arrayOf(
+                Manifest.permission.BLUETOOTH_CONNECT,
+                Manifest.permission.BLUETOOTH_SCAN,
+                Manifest.permission.SEND_SMS
+            ),
+            1
+        )
+
+        // Hook up ESP32 connect button
+        val btnEsp32 = findViewById<Button>(R.id.btnConnectEsp32)
+        btnEsp32.setOnClickListener {
+            if (espService.connectToDevice("ESP32_BT_NAME")) { // replace with your ESP32 Bluetooth name
+                espService.startListening()
+                Toast.makeText(this, "ESP32 connected", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "ESP32 connection failed", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -160,26 +189,4 @@ class MainActivity : AppCompatActivity() {
                 }
             }
     }
-    // ✅ ESP32 integration
-val espService = Esp32BluetoothService(this, "+917996799399") // replace with real number
-
-// Request required permissions
-ActivityCompat.requestPermissions(
-    this,
-    arrayOf(
-        Manifest.permission.BLUETOOTH_CONNECT,
-        Manifest.permission.BLUETOOTH_SCAN,
-        Manifest.permission.SEND_SMS
-    ),
-    1
-)
-
-// Example: button to connect to ESP32
-val btnEsp32 = findViewById<Button>(R.id.btnConnectEsp32) // add button in XML layout
-btnEsp32.setOnClickListener {
-    if (espService.connectToDevice("ESP32_BT_NAME")) { // replace with your ESP32 Bluetooth name
-        espService.startListening()
-    }
-}
-
 }
