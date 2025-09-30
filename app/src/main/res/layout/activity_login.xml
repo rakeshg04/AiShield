@@ -85,6 +85,15 @@
             android:text="Don’t have an account? Sign up"
             android:textColor="@color/black"
             android:textStyle="bold" />
+        
+        <Button
+            android:id="@+id/btnConnectEsp32Login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect ESP32"
+            android:enabled="false"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center" />
 
     </LinearLayout>
 

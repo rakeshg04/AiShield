@@ -4,7 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.os.Bundle
 import android.widget.EditText
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -29,9 +28,6 @@ class MainActivity : AppCompatActivity() {
     private var tempPhone = ""
     private var tempAddress = ""
     private var tempPassword = ""
-
-    // ✅ ESP32 service (initialize later)
-    private lateinit var espService: Esp32BluetoothService
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,30 +64,14 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, Login::class.java))
         }
 
-        // ✅ ESP32 integration setup
-        espService = Esp32BluetoothService(this, "+917996799399") // replace with real number
-
-        // Ask runtime permissions
+        // Ask runtime permissions (only for phone/SMS auth here)
         ActivityCompat.requestPermissions(
             this,
             arrayOf(
-                Manifest.permission.BLUETOOTH_CONNECT,
-                Manifest.permission.BLUETOOTH_SCAN,
                 Manifest.permission.SEND_SMS
             ),
             1
         )
-
-        // Hook up ESP32 connect button
-        val btnEsp32 = findViewById<Button>(R.id.btnConnectEsp32)
-        btnEsp32.setOnClickListener {
-            if (espService.connectToDevice("ESP32_BT_NAME")) { // replace with your ESP32 Bluetooth name
-                espService.startListening()
-                Toast.makeText(this, "ESP32 connected", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "ESP32 connection failed", Toast.LENGTH_SHORT).show()
-            }
-        }
     }
 
     private fun sendOtpToPhone(phone: String) {
@@ -173,8 +153,7 @@ class MainActivity : AppCompatActivity() {
                                 database.child("users").child(userId).setValue(user)
                                     .addOnSuccessListener {
                                         Toast.makeText(this, "Signup Successful", Toast.LENGTH_SHORT).show()
-                                        startActivity(Intent(this, Applying::class.java))
-                                        finish()
+                                        startActivity(Intent(this, DashboardActivity::class.java))                                        finish()
                                     }
                                     .addOnFailureListener {
                                         Toast.makeText(this, "Failed to store user data", Toast.LENGTH_SHORT).show()
